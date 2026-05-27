@@ -1,0 +1,5 @@
+Before publishing, copy your thesis PDF into this folder and rename it exactly:
+
+Thesis_Jiten_Kumbhakar.pdf
+
+Then all thesis buttons/links on the website will work locally.
