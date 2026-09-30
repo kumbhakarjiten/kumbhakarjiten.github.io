@@ -128,3 +128,18 @@ main{padding-bottom:72px}
 @media(max-width:1040px){.nav{align-items:flex-start;flex-direction:column;justify-content:center;padding:14px 0}.nav-links{justify-content:flex-start;gap:14px 18px}}
 @media(max-width:920px){.hero-grid,.section-grid,.content-grid,.home-two-column,.research-card-grid,.current-projects-grid,.research-theme-grid,.methods-layout{grid-template-columns:1fr}.hero-main,.page-intro{padding:30px}.section-heading-row{align-items:flex-start;flex-direction:column}.arrow-link{white-space:normal}.section-caption{padding-bottom:0}}
 @media(max-width:640px){.container{width:min(calc(100% - 28px),var(--max))}.hero,.page-shell{padding-top:42px}.hero-main,.profile-card,.section-card,.page-intro,.list-card,.research-card,.current-project-card,.research-theme-card{padding:22px;border-radius:18px}.portrait{min-height:220px}.photo-box img{min-height:220px}.button{width:100%}.nav{gap:10px;padding:11px 0 8px}.nav-links{width:100%;font-size:.91rem;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;white-space:nowrap;justify-content:flex-start;gap:18px;padding:0 0 5px;scrollbar-width:thin;-webkit-overflow-scrolling:touch}.nav-links a{flex:0 0 auto}.news-list li{grid-template-columns:1fr;gap:4px}.notes-list li{align-items:flex-start;flex-direction:column}.footer-inner{flex-direction:column;align-items:flex-start;gap:8px}.project-topline{align-items:flex-start}.methods-card{padding:22px}}
+
+/* Preview cleanup: mirror final branding without affecting the real counter. */
+.footer-inner>div:first-child{font-size:0}
+.footer-inner>div:first-child::after{content:"© 2026 Jiten Kumbhakar · Academic webpage";font-size:.92rem}
+.footer-counter{
+  display:block;
+  width:210px;
+  height:26px;
+  min-height:26px;
+  background-image:url("https://hitscounter.dev/api/hit?url=https%3A%2F%2Fkumbhakarjiten.github.io%2Fpreview-2026%2F&label=Site%20visits&icon=eye-fill&color=%23123b63");
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:contain;
+}
+.footer-counter>*{display:none!important}
