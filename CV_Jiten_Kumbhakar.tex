@@ -1,0 +1,183 @@
+%========================================================
+% Academic CV — Jiten Kumbhakar
+% Updated September 2026 to match academic webpage
+%========================================================
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[a4paper,left=20mm,right=20mm,top=18mm,bottom=18mm]{geometry}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor=black,urlcolor=blue,citecolor=black]{hyperref}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{fontawesome5}
+
+\definecolor{sectionblue}{RGB}{20,55,90}
+\titleformat{\section}{\large\bfseries\color{sectionblue}}{}{0pt}{}[\vspace{-2pt}\titlerule]
+\titlespacing*{\section}{0pt}{10pt}{5pt}
+\setlist[itemize]{leftmargin=1.5em,itemsep=1.5pt,topsep=2pt,parsep=0pt}
+\setlength{\parindent}{0pt}
+\pagenumbering{gobble}
+
+\newcommand{\cvitem}[2]{%
+  \begin{tabularx}{\textwidth}{@{}>{\bfseries}p{0.18\textwidth}X@{}}
+  #1 & #2
+  \end{tabularx}%
+}
+
+\newcommand{\publication}[3]{\item #1. \emph{#2}. #3}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\bfseries Jiten Kumbhakar} \\[4pt]
+    \textbf{Postdoctoral Researcher in Mathematics} \\[2pt]
+    Department of Evolution Differential Equations \\[1pt]
+    Institute of Mathematics, Czech Academy of Sciences \\[1pt]
+    \v{Z}itn\'a 25, 115 67 Prague 1, Czech Republic \\[5pt]
+    \faIcon{envelope}\; \href{mailto:kumbhakar@math.cas.cz}{kumbhakar@math.cas.cz}
+    \quad | \quad
+    \faIcon{globe}\; \href{https://kumbhakarjiten.github.io/}{kumbhakarjiten.github.io}
+    \quad | \quad
+    \faIcon{graduation-cap}\; \href{https://scholar.google.com/citations?user=325vEj0AAAAJ\&hl=en}{Google Scholar}
+    \\[2pt]
+    \faIcon{orcid}\; \href{https://orcid.org/0000-0001-8126-8911}{ORCID}
+    \quad | \quad
+    \faIcon{archive}\; \href{https://arxiv.org/search/?query=Jiten+Kumbhakar\&searchtype=author}{arXiv}
+\end{center}
+
+\section*{Research Profile}
+I work on partial differential equations arising in fluid mechanics and control theory. My research focuses on compressible Navier--Stokes type systems, controllability and stabilization, time-periodic PDEs, fluid--structure interaction, and harmonic-analysis methods in critical function spaces. I am currently a postdoctoral researcher at the Institute of Mathematics of the Czech Academy of Sciences under the mentorship of Professor \v{S}\'arka Ne\v{c}asov\'a.
+
+\section*{Research Interests}
+\begin{itemize}
+    \item Partial differential equations and mathematical fluid mechanics.
+    \item Compressible Navier--Stokes equations; linearized and nonlinear fluid models.
+    \item Boundary controllability, null controllability, observability, stabilization, and insensitizing controls.
+    \item Time-periodic PDEs, non-autonomous evolution problems, maximal regularity, and Fourier multiplier methods.
+    \item Harmonic analysis methods in PDEs; homogeneous, inhomogeneous, and hybrid Besov spaces.
+    \item Compressible fluid--structure interaction, weak solutions, energy and entropy methods.
+    \item Coupled parabolic--transport and chemotaxis--fluid control problems.
+\end{itemize}
+
+\section*{Academic Positions}
+\cvitem{Feb. 2025--present}{\textbf{Postdoctoral Researcher}, Institute of Mathematics, Czech Academy of Sciences, Prague, Czech Republic.}
+\cvitem{}{Mentor: Professor \v{S}\'arka Ne\v{c}asov\'a.}
+
+\section*{Education}
+\cvitem{2017--2024}{\textbf{Integrated Ph.D. in Mathematics}, Indian Institute of Science Education and Research Kolkata, India.}
+\cvitem{}{Thesis: \emph{Boundary controllability of linearized compressible Navier--Stokes system and related equations}.}
+\cvitem{}{Supervisor: Dr. Shirshendu Chowdhury.}
+\cvitem{2014--2017}{\textbf{B.Sc. in Mathematics}, Jagannath Kishore College, Purulia, India.}
+
+\section*{Publications}
+\begin{enumerate}[leftmargin=2em,label={\textbf{[P\arabic*]}}]
+    \publication{Kuntal Bhandari, Shirshendu Chowdhury, Rajib Dutta, and Jiten Kumbhakar}
+    {Boundary null-controllability of 1D linearized compressible Navier--Stokes system by one control force}
+    {\emph{Journal of Differential Equations}, \textbf{453} (2026), Article 113891. \href{https://doi.org/10.1016/j.jde.2025.113891}{doi:10.1016/j.jde.2025.113891}.}
+
+    \publication{Kuntal Bhandari, Jiten Kumbhakar, and Subrata Majumdar}
+    {Local null-controllability of a two-parabolic nonlinear system with coupled boundary conditions by a Neumann control}
+    {\emph{Evolution Equations and Control Theory}, \textbf{13}(2) (2024), 587--615. \href{https://doi.org/10.3934/eect.2023059}{doi:10.3934/eect.2023059}.}
+\end{enumerate}
+
+\section*{Selected Submitted Manuscripts and Preprints}
+\begin{enumerate}[leftmargin=2em,label={\textbf{[S\arabic*]}}]
+    \item \textbf{Jiten Kumbhakar}. \emph{Null controllability of one-dimensional barotropic and non-barotropic linearized compressible Navier--Stokes system using one boundary control}. \textbf{Submitted}. Earlier version: \href{https://arxiv.org/abs/2301.04080}{arXiv:2301.04080}.
+
+    \item \textbf{Jiten Kumbhakar}. \emph{Time-periodic Navier--Stokes equations with and without cubic damping in hybrid Besov spaces}. \textbf{Submitted}.
+
+    \item \textbf{Jiten Kumbhakar}. \emph{Time-periodic solutions to the Brinkman--Forchheimer system in Besov spaces}. \textbf{Submitted}.
+\end{enumerate}
+
+\section*{Selected Current Research Projects}
+\begin{itemize}
+    \item \textbf{Kuntal Bhandari, Thomas Eiter, Jiten Kumbhakar, \v{S}\'arka Ne\v{c}asov\'a, and Yoshihiro Shibata}. \emph{Time-periodic solutions and maximal regularity for compressible Navier--Stokes equations in Besov spaces}. Work in progress.
+
+    \item \textbf{Jiten Kumbhakar, \v{S}\'arka Ne\v{c}asov\'a, and Kuntal Bhandari}. \emph{Compressible fluid--structure interaction}. Work in progress on heat-conducting fluid--rigid-body systems with thermodynamic effects.
+
+    \item \textbf{Jiten Kumbhakar}. \emph{Localized Insensitizing Controls for a Two-Dimensional Chemotaxis--Brinkman System with Admissible Sources}. Work in progress.
+
+    \item \textbf{Jiten Kumbhakar}. \emph{Sharp boundary null controllability of a two-dimensional parabolic--transport system with a single inflow control}. Work in progress.
+\end{itemize}
+
+\section*{Ph.D. Thesis}
+\begin{itemize}
+    \item \textbf{Jiten Kumbhakar}. \emph{Boundary controllability of linearized compressible Navier--Stokes system and related equations}, Ph.D. thesis, IISER Kolkata, 2024. \href{https://kumbhakarjiten.github.io/Thesis_Jiten_Kumbhakar.pdf}{Thesis PDF}.
+\end{itemize}
+
+\section*{Awards and Fellowships}
+\begin{itemize}
+    \item \textbf{Prime Minister Research Fellowship (PMRF)}, IISER Kolkata, India, 2020--2023.
+    \item \textbf{CSIR Junior Research Fellowship}, India, December 2018. National Rank: 98.
+    \item \textbf{Joint Admission Test for M.Sc. (JAM)}, 2017. National Rank: 38 in Mathematics; 72 in Statistics.
+    \item \textbf{Gold Medalist}, 2017: Shakti Sadhan Basu Memorial Medal and Prize; Manindralal Banerjee Memorial Prize.
+\end{itemize}
+
+\section*{Upcoming Research Talks}
+\begin{itemize}
+    \item \textbf{Besov Spaces for Partial Differential Equations}. Institute of Mathematics, Czech Academy of Sciences, Prague, October 13, 2026.
+    \item \textbf{Time-Periodic Compressible Navier--Stokes Equations in Besov Spaces}. Institute of Mathematics, Czech Academy of Sciences, Prague, October 20, 2026.
+\end{itemize}
+
+\section*{Research Talks and Seminars}
+\begin{itemize}
+    \item \textbf{Some controllability results for one-dimensional linearized compressible Navier--Stokes equations}. Evolution Differential Equations, Conference at Funchal--Madeira, on the occasion of the 60th birthday of Professor \v{S}\'arka Ne\v{c}asov\'a, June 4, 2025. Contributed talk.
+
+    \item \textbf{Local null controllability of a parabolic system using a Neumann boundary control}. Seminar on Partial Differential Equations, Institute of Mathematics, Czech Academy of Sciences, Prague, March 25, 2025.
+
+    \item \textbf{The Heat Equation is ``Flat''}. DMS In-House Symposium, Indian Institute of Science Education and Research Kolkata, February 20, 2023.
+
+    \item \textbf{On Flatness and Controllability of the Heat Equation in One Dimension}. Weekly Research Seminar organized by Professor Mythily Ramaswamy, TIFR--ICTS Bangalore, online, August 5, 2021.
+\end{itemize}
+
+\section*{Poster Presentations}
+\begin{itemize}
+    \item \textbf{Motion Planning for the Heat Equation}. Poster presentation at \emph{Control Theory Meets the Theory of Homogenization}, IIT Bombay, India, February 28--March 4, 2023.
+
+    \item \textbf{Boundary controllability of linearized compressible Navier--Stokes equations in 1D using one control}. Poster presentation at \emph{Recent Advances on Control Theory of PDE Systems}, ICTS Bangalore, India, February 12--23, 2024.
+\end{itemize}
+
+\section*{Conferences, Workshops, and Schools Attended}
+\begin{itemize}
+    \item \textbf{The 16th Czechoslovak Equadiff (EQUADIFF 2026)}, Prague, Czech Republic, June 29--July 3, 2026. Participant.
+    \item \textbf{Mathematics with Applications 2025 (MathApp2025)}, Funchal, Madeira, Portugal, June 2--6, 2025. Conference on the occasion of the 60th birthday of Professor \v{S}\'arka Ne\v{c}asov\'a.
+    \item \textbf{Rotation and Fluids -- Prague-Sum Summer School 2025}, Institute of Mathematics, Czech Academy of Sciences, Prague, Czech Republic, August 25--29, 2025.
+    \item \textbf{Mathematical Analysis of Fluid Flow Models}, TIFR CAM Bangalore, India, June 10--22, 2024. NCM Workshop.
+    \item \textbf{Recent Advances on Control Theory of PDE Systems}, ICTS Bangalore, India, February 12--23, 2024. International Conference.
+    \item \textbf{Control Theory Meets the Theory of Homogenization}, IIT Bombay, India, February 28--March 4, 2023. Discussion Meeting.
+    \item \textbf{Convex Integration Solutions for the Transport Equation}, IISER Kolkata, India, November 8--18, 2021. Lecture Series by Dr. Ujjwal Koley.
+    \item \textbf{Short Course in Calculus of Variations}, IISER Kolkata, India, January 28--February 1, 2019. Lecture Series by Professor Bernard Dacorogna.
+\end{itemize}
+
+\section*{Teaching Experience}
+\subsection*{Teaching Assistant, IISER Kolkata}
+\begin{itemize}
+    \item Mathematics I (MA1101), Autumn 2022 and Autumn 2021.
+    \item Mathematics II (MA1201), Spring 2022, Spring 2021, and Spring 2020.
+    \item Analysis II (MA2201), Spring 2021.
+    \item Analysis III (MA3101), Autumn 2019.
+\end{itemize}
+
+\subsection*{Teaching Assistant, Workshops}
+\begin{itemize}
+    \item \textbf{Control Theory for Partial Differential Equations}, NCM Workshop, IISER Thiruvananthapuram, India, December 4--16, 2023.
+    \item \textbf{Control Theory for Differential Equations}, NCM Workshop, IISER Kolkata, India, November 28--December 10, 2022.
+\end{itemize}
+
+\subsection*{NPTEL Live Sessions}
+\begin{itemize}
+    \item \textbf{Basic Linear Algebra} (noc23-ma07), Course Instructor: Professor I. K. Rana, IIT Bombay, February--April 2023.
+    \item \textbf{Introductory Course in Real Analysis} (noc22-ma79), Course Instructor: Professor P. D. Srivastava, IIT Kharagpur, July--October 2022.
+\end{itemize}
+
+\section*{Languages}
+Bengali (native), Hindi, English.
+
+\section*{References}
+Available upon request.
+
+\end{document}
