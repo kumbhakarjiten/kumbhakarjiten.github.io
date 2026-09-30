@@ -1,0 +1,41 @@
+name: Build CV PDF
+
+on:
+  push:
+    branches:
+      - main
+      - website-2026-update
+    paths:
+      - 'CV_Jiten_Kumbhakar.tex'
+      - '.github/workflows/build-cv.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  build-cv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compile CV
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: CV_Jiten_Kumbhakar.tex
+
+      - name: Commit compiled PDF
+        shell: bash
+        run: |
+          sudo chown -R "$USER":"$USER" .
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CV_Jiten_Kumbhakar.pdf
+          if git diff --cached --quiet; then
+            echo "CV PDF is already up to date."
+            exit 0
+          fi
+          git commit -m "Build updated CV PDF"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
