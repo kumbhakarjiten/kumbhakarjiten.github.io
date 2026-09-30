@@ -155,3 +155,16 @@ main{padding-bottom:72px}
   .project-topline{align-items:flex-start}
   .methods-card{padding:22px}
 }
+
+/* Visible shared visitor counter: no JavaScript rendering required. */
+.footer-counter{
+  display:block;
+  width:210px;
+  height:26px;
+  min-height:26px;
+  background-image:url("https://hitscounter.dev/api/hit?url=https%3A%2F%2Fkumbhakarjiten.github.io%2F&label=Site%20visits&icon=eye-fill&color=%23123b63");
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:contain;
+}
+.footer-counter>*{display:none!important}
