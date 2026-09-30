@@ -1,0 +1,25 @@
+.research-section .section-heading-row{margin-bottom:28px}
+.research-section .eyebrow.compact{margin-bottom:16px;line-height:1.25}
+.submitted-projects-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.submitted-project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-soft);padding:26px;position:relative;overflow:hidden}
+.submitted-project-card::before{content:"";position:absolute;left:0;top:0;right:0;height:3px;background:#8aa8c2}
+.submitted-project-card .project-topline{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px;min-height:30px}
+.submitted-project-card .status-pill.submitted{margin-right:0;line-height:1.25;padding:5px 10px;min-height:30px}
+.submitted-project-card h3{font-size:1.08rem;line-height:1.42;margin-bottom:12px}
+.submitted-project-card p{font-size:.94rem;color:var(--muted);margin-bottom:0}
+.current-project-card .project-topline{margin-bottom:22px;min-height:30px}
+.status-pill.wip{line-height:1.25;padding:5px 10px;min-height:30px}
+.current-project-card h3{margin-bottom:16px;line-height:1.35}
+.current-project-card p{margin-bottom:16px}
+.current-project-card .collaboration-note{margin-top:4px;margin-bottom:18px;line-height:1.55}
+.research-theme-card{padding-top:30px;padding-bottom:30px}
+.research-theme-card h3{margin-bottom:14px;line-height:1.35}
+.methods-card{margin-top:8px;margin-bottom:10px}
+.methods-card .eyebrow.compact{margin-bottom:16px}
+.methods-card .section-title{margin-bottom:18px;line-height:1.3}
+.methods-layout{gap:42px}
+.methods-list{gap:12px 10px;padding-top:4px}
+.method-chip{line-height:1.35;padding:10px 13px}
+.last-research-section{margin-top:50px}
+@media(max-width:1040px){.submitted-projects-grid{grid-template-columns:1fr}}
+@media(max-width:920px){.research-section .section-heading-row{gap:10px}.methods-layout{gap:26px}.last-research-section{margin-top:40px}}
