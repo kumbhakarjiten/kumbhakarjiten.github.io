@@ -1,0 +1,20 @@
+.publications-intro{margin-bottom:36px}
+.publications-intro-note{max-width:860px;margin-bottom:0;font-size:1.01rem}
+.publications-section{margin-top:42px}
+.publications-section .section-heading-row{margin-bottom:24px}
+.publication-card-list{display:grid;gap:18px}
+.publication-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);box-shadow:var(--shadow-soft);padding:26px 28px}
+.publication-card-header{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:10px}
+.publication-card h3{font-size:1.18rem;line-height:1.42;margin:0}
+.publication-authors{color:var(--muted);font-size:.96rem;margin-bottom:8px}
+.publication-venue{font-size:.94rem;color:var(--muted);margin-bottom:0}
+.publication-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
+.publication-link{display:inline-flex;align-items:center;min-height:34px;padding:0 11px;border:1px solid var(--border);border-radius:999px;color:var(--primary);font-size:.84rem;font-weight:680;background:#fff}
+.publication-link:hover{background:var(--primary-soft)}
+.status-pill.published{background:#edf6ef;color:#2f6841;border-color:#d1e6d7}
+.status-pill.manuscript{background:#f2f3f7;color:#535d6c;border-color:#dde1e8}
+.status-pill.preprint{background:#edf5fb;color:var(--primary);border-color:#d1e1ef}
+.wip-card{border-left:4px solid #c9d8e6}
+.thesis-card{background:linear-gradient(180deg,#fff,#fbfcfe)}
+.publications-note{padding:18px 20px;border:1px dashed var(--border-strong);border-radius:var(--radius-sm);color:var(--muted);font-size:.93rem;background:var(--surface-soft);margin-top:20px}
+@media(max-width:640px){.publication-card{padding:22px}.publication-card-header{flex-direction:column;gap:10px}.publication-links{gap:8px}}
