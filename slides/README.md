@@ -10,4 +10,4 @@ Slides are linked from [Talks](../talks.html) when the PDF is present. Upload th
 | The Heat Equation is “Flat” — DMS Symposium, 20 February 2023 | `DMS_Symposium_2023_Heat_Equation_Flat.pdf` |
 | On Flatness and Controllability of the Heat Equation in One Dimension — TIFR–ICTS listing, 5 August 2021 | `TIFR_ICTS_2021_Flatness_Heat_Equation.pdf` |
 
-**Archival note:** The available TIFR–ICTS slide PDF itself is dated *18 December 2021*, whereas the Talks webpage currently lists the related research seminar as *5 August 2021*. Confirm whether these dates correspond to two presentations before changing the published event date.
+**Archival note:** The seminar date is **5 August 2021**, as recorded in the academic CV. The PDF included in the corrected upload package has the title-slide date and repeated footer dates changed to **August 5, 2021**. The slide contents are otherwise unchanged.
