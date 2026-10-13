@@ -100,49 +100,7 @@
     <div class="footer-meta">Last updated 13 October 2026</div>
   </div>
 </footer>
-<script>
-document.getElementById("year").textContent = new Date().getFullYear();
-
-(function () {
-  const card = document.getElementById("visit-card");
-  const todayNode = document.getElementById("visits-today");
-  const totalNode = document.getElementById("visits-total");
-  const api = "https://countapi.mileshilliard.com/api/v1";
-  const totalKey = "jiten-kumbhakar-academic-site-total-2026-v3";
-  const dateParts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Europe/Budapest",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit"
-  }).formatToParts(new Date());
-  const part = type => dateParts.find(x => x.type === type).value;
-  const budapestDate = `${part("year")}-${part("month")}-${part("day")}`;
-  const todayKey = `jiten-kumbhakar-academic-site-${budapestDate}-v3`;
-  const alreadyCounted = sessionStorage.getItem("jk-academic-site-visit-v3") === "1";
-  const action = alreadyCounted ? "get" : "hit";
-
-  Promise.all([
-    fetch(`${api}/${action}/${totalKey}`, { cache: "no-store" }).then(r => {
-      if (!r.ok) throw new Error("Total counter unavailable");
-      return r.json();
-    }),
-    fetch(`${api}/${action}/${todayKey}`, { cache: "no-store" }).then(r => {
-      if (!r.ok) throw new Error("Daily counter unavailable");
-      return r.json();
-    })
-  ]).then(([total, today]) => {
-    totalNode.textContent = total.value;
-    todayNode.textContent = today.value;
-    card.classList.remove("is-loading", "is-error");
-    if (!alreadyCounted) sessionStorage.setItem("jk-academic-site-visit-v3", "1");
-  }).catch(() => {
-    card.classList.remove("is-loading");
-    card.classList.add("is-error");
-    todayNode.textContent = "—";
-    totalNode.textContent = "—";
-    card.title = "Visit counter temporarily unavailable";
-  });
-})();
-</script>
+<script>document.getElementById("year").textContent=new Date().getFullYear();</script>
+<script src="assets/visit-counter.js?v=20261013" data-count-visit="true"></script>
 </body>
 </html>
