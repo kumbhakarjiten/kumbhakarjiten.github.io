@@ -1,10 +1,10 @@
 # Seminar and conference presentation slides
 
-Slides are linked from [Talks](../talks.html) when the PDF is present. Upload the files with **exact filenames** to this directory (`slides/`) on the `main` branch.
+Slides are linked directly from the [Talks](../talks.html) page. Upload the files with **exact filenames** to this directory (`slides/`) on the `main` branch.
 
 | Presentation | File |
 | --- | --- |
-| Time-Periodic Compressible Navier–Stokes Equations in Besov Spaces — Institute seminar, 20 October 2026 | `Oct20_CNS_Final_Presentation.pdf` |
+| Time-Periodic Compressible Navier–Stokes Equations in Besov Spaces — Institute seminar, 20 October 2026 | `Oct20_CNS_Final_Presentation-2.pdf` |
 | Besov Spaces for Partial Differential Equations — Institute seminar, 13 October 2026 | `Oct13_Besov_Slides_With_Backups.pdf` |
 | Some controllability results for 1D linearized compressible Navier–Stokes equations — Funchal, 4 June 2025 | `Funchal_2025_Compressible_NS_Control.pdf` |
 | Local null controllability of a parabolic system using a Neumann boundary control — Institute of Mathematics, 25 March 2025 | `IMCAS_PDE_Seminar_2025_Parabolic_System.pdf` |
