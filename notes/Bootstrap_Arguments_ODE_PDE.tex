@@ -1,0 +1,439 @@
+\documentclass[a4paper,10pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern,microtype}
+\usepackage[margin=25mm,headheight=14pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{xcolor,enumitem,booktabs,fancyhdr}
+\definecolor{navy}{HTML}{123B63}
+\usepackage[colorlinks=true,linkcolor=navy,urlcolor=navy,citecolor=navy]{hyperref}
+\hypersetup{pdftitle={Bootstrap Arguments: From an ODE to a Simple PDE},pdfauthor={Jiten Kumbhakar},pdfsubject={Self-contained note on continuity bootstraps, local existence and continuation}}
+\numberwithin{equation}{section}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\T}{\mathbb T}
+\newcommand{\norm}[1]{\lVert#1\rVert}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\dd}{\,\mathrm d}
+\newcommand{\Tmax}{T_{\max}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt plus 1pt}
+\setlist[enumerate]{leftmargin=*,itemsep=2pt,topsep=3pt}
+\setlist[itemize]{leftmargin=*,itemsep=2pt,topsep=3pt}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{navy}Bootstrap arguments}
+\fancyhead[R]{\small Jiten Kumbhakar}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+\newcommand{\pageheading}[1]{\section{#1}}
+\begin{document}
+\thispagestyle{plain}
+\begin{center}
+{\LARGE\bfseries\color{navy}Bootstrap Arguments}\\[5pt]
+{\large From an ODE to a Simple PDE}\\[8pt]
+Jiten Kumbhakar\\[3pt]
+{\small Expository note \;\textbullet\; Version 1.0 \;\textbullet\; 23 October 2026}
+\end{center}
+\vspace{3pt}
+\textbf{Purpose.} A reusable, self-contained introduction to the continuity bootstrap:
+first the logical principle, then an ordinary differential equation, and finally a
+semilinear heat equation. The local construction and the continuation step are
+included. Only elementary calculus, uniform convergence and basic normed-space
+notation are assumed; the fixed-point fact used below is proved in Section~2.
+
+\pageheading{What is a bootstrap argument?}
+\begin{definition}[Continuity bootstrap]
+A continuity bootstrap proves a bound by assuming a weaker bound on an initial
+time interval, deriving a \emph{strictly better} bound there, and using continuity
+to show that the weaker bound can never first fail.
+\end{definition}
+The temporary assumption is called the \emph{bootstrap hypothesis}; the stronger
+estimate is the \emph{bootstrap improvement}. For example,
+\[
+X\leq 2\varepsilon
+\quad\Longrightarrow\quad
+X\leq \tfrac32\varepsilon<2\varepsilon.
+\]
+This is not a circular proof: the initial data start inside the allowed region,
+and the improvement rules out the first time the solution could reach its boundary.
+
+\begin{lemma}[First-exit principle]\label{lem:exit}
+Let $X:[0,\Tmax)\to[0,\infty)$ be continuous, where $0<\Tmax\leq\infty$.
+Let $0\leq m<M$, and assume $X(0)<M$. Suppose that for every $t<\Tmax$,
+\[
+\bigl[X(s)\leq M\text{ for every }s\in[0,t]\bigr]
+\quad\Longrightarrow\quad X(t)\leq m.
+\]
+Then $X(t)\leq m$ for every $t<\Tmax$.
+\end{lemma}
+\begin{proof}
+If $X(t_1)\geq M$ for some $t_1<\Tmax$, continuity gives a first time
+$\tau\in(0,t_1]$ with $X(\tau)=M$. On $[0,\tau]$ we have $X\leq M$, so the
+assumed improvement gives $X(\tau)\leq m<M$, a contradiction. Thus $X<M$
+everywhere. Applying the improvement on each $[0,t]$ now gives $X(t)\leq m$.
+\end{proof}
+
+\textbf{The usual quantity.} If $f:[0,\Tmax)\to[0,\infty)$ is continuous, set
+$X(t)=\max_{0\leq s\leq t}f(s)$. This running maximum is continuous and
+nondecreasing. Indeed, on any compact time interval let $\omega$ be a modulus
+of continuity of $f$. For $t\geq r$, the new values satisfy
+$f(s)\leq f(r)+\omega(t-r)\leq X(r)+\omega(t-r)$ for $r\leq s\leq t$.
+Hence $0\leq X(t)-X(r)\leq\omega(t-r)$. A hypothesis $X(t)\leq M$ therefore
+already controls all earlier times.
+
+\textbf{Scope.} Here ``bootstrap'' means a bound closed by continuity. The related
+\emph{regularity bootstrap} repeatedly improves differentiability using the
+equation; it is a different use of the same word.
+
+\newpage
+\pageheading{The estimate that closes the argument}
+\begin{proposition}[Quadratic bootstrap]\label{prop:quadratic}
+Let $a>0$, $b\geq0$, and let $X$ be continuous and nonnegative on
+$[0,\Tmax)$ with $X(0)\leq a$. Suppose that, whenever $X(s)\leq2a$ on
+$[0,t]$, the estimate
+\begin{equation}\label{eq:quadratic}
+X(t)\leq a+bX(t)^2
+\end{equation}
+holds. If $8ab\leq1$, then $X(t)\leq\frac32a$ for every $t<\Tmax$.
+\end{proposition}
+\begin{proof}
+Under the bootstrap hypothesis,
+\[
+X(t)\leq a+b(2a)^2=a+4ba^2\leq\tfrac32a<2a.
+\]
+Apply Lemma~\ref{lem:exit} with $M=2a$ and $m=\frac32a$.
+\end{proof}
+The numbers $2$ and $3/2$ provide convenient slack; they have no intrinsic
+significance. More generally, $X\leq a+bX^p$, $p>1$, closes in exactly the
+same way if $b(2a)^p\leq a/2$.
+
+\textbf{Why the inequality alone is insufficient.}
+For $b>0$, every $X\geq1/b$ satisfies $X\leq a+bX^2$. Thus
+\eqref{eq:quadratic} allows a large branch as well as a small one. The initial
+bound and continuity keep the solution on the small branch. When $a=0$,
+the thresholds above coincide; in our examples the zero solution is instead
+handled directly by uniqueness.
+
+\textbf{Finite time versus global time.}
+If $b=b(T)$ grows with the time horizon, the smallness condition only gives
+control on horizons for which $8ab(T)\leq1$. For example, the integral form
+of $y'=y^2$ gives $X(T)\leq\abs{y_0}+T X(T)^2$, with
+$X(T)=\max_{s\leq T}\abs{y(s)}$. It yields a useful short-time estimate,
+not a bound uniform for all time. The damping in our two examples removes
+this growth of the nonlinear constant.
+
+\subsection*{The elementary existence tool}
+A normed space is \emph{complete} if every Cauchy sequence converges in it;
+it is then called a Banach space. The space of continuous functions on a
+compact interval, with the uniform norm, is complete: uniform limits of
+continuous functions are continuous, and pointwise completeness gives the limit.
+The same argument applies to continuous functions with values in a Banach space.
+
+\begin{lemma}[Contraction principle]\label{lem:contraction}
+Let $B$ be a nonempty closed subset of a Banach space. If
+$\Phi:B\to B$ satisfies
+$\norm{\Phi(v)-\Phi(w)}\leq q\norm{v-w}$ for some $0\leq q<1$, then
+$\Phi$ has exactly one fixed point in $B$.
+\end{lemma}
+\begin{proof}
+Starting with $v_0\in B$, let $v_{n+1}=\Phi(v_n)$. Induction gives
+$\norm{v_{n+1}-v_n}\leq q^n\norm{v_1-v_0}$. Summing this geometric bound
+shows that $(v_n)$ is Cauchy. Its limit $v\in B$ satisfies $v=\Phi(v)$ by
+the Lipschitz estimate. If $w$ is another fixed point, then
+$\norm{v-w}\leq q\norm{v-w}$, which forces $v=w$.
+\end{proof}
+
+\textbf{Division of work.} A fixed-point argument constructs a local solution.
+A bootstrap controls a solution on its existing interval. A continuation
+criterion determines whether that interval can be extended. Each step has
+its own hypothesis; a bootstrap bound alone is not an existence theorem.
+
+\newpage
+\pageheading{ODE example: damping against quadratic growth}
+Consider the real-valued initial-value problem
+\begin{equation}\label{eq:ode}
+y'(t)+y(t)=y(t)^2,\qquad y(0)=y_0\in\R.
+\end{equation}
+\begin{theorem}\label{thm:ode}
+If $\delta=\abs{y_0}\leq1/8$, problem~\eqref{eq:ode} has a unique global
+$C^1$ solution and
+\begin{equation}\label{eq:odebound}
+\abs{y(t)}\leq \tfrac32\delta e^{-t}\leq2\delta e^{-t}
+\qquad(t\geq0).
+\end{equation}
+\end{theorem}
+\begin{proof}
+\textbf{1. Local construction and continuation.}
+Multiplication by $e^t$ gives the equivalent integral equation
+\begin{equation}\label{eq:odeintegral}
+y(t)=e^{-t}y_0+\int_0^t e^{-(t-s)}y(s)^2\dd s.
+\end{equation}
+Let $A=\max\{1,\abs{y_0}\}$ and $h=1/(8A)$. On the closed ball
+$\norm{v}_{C([0,h])}\leq2A$, the right-hand side defines $\Phi$ with
+\[
+\norm{\Phi(v)}\leq A+4A^2h\leq\tfrac32A,\qquad
+\norm{\Phi(v)-\Phi(w)}\leq4Ah\norm{v-w}\leq\tfrac12\norm{v-w}.
+\]
+Lemma~\ref{lem:contraction} gives a fixed point, and differentiation of
+\eqref{eq:odeintegral} shows that it solves~\eqref{eq:ode}. Two bounded
+solutions coincide on sufficiently short intervals by the same difference
+estimate; subdivision gives uniqueness on their common interval.
+
+Restarting at any time produces a maximal solution on $[0,\Tmax)$.
+If $\Tmax<\infty$ and $\sup_{t<\Tmax}\abs{y(t)}\leq B<\infty$, the same
+construction from any initial time has lifespan at least
+$1/(8\max\{1,B\})$. Restarting sufficiently close to $\Tmax$ extends past
+$\Tmax$, contradicting maximality. Thus a uniform bound prevents finite-time
+breakdown.
+
+\textbf{2. Bootstrap estimate.}
+If $\delta=0$, uniqueness gives $y=0$. Otherwise define
+\[
+X(t)=\max_{0\leq s\leq t} e^s\abs{y(s)},\qquad t<\Tmax.
+\]
+This is continuous and $X(0)=\delta$. From~\eqref{eq:odeintegral}, for
+each $r\leq t$,
+\[
+e^r\abs{y(r)}
+\leq\delta+\int_0^r e^s\abs{y(s)}^2\dd s
+\leq\delta+X(t)^2\int_0^r e^{-s}\dd s
+\leq\delta+X(t)^2.
+\]
+Taking the maximum in $r$ gives $X(t)\leq\delta+X(t)^2$.
+Since $8\delta\leq1$, Proposition~\ref{prop:quadratic} yields
+$X(t)\leq3\delta/2$ for all $t<\Tmax$.
+
+\textbf{3. Global continuation.}
+Consequently $\abs{y(t)}\leq3\delta/2$ on the maximal interval. Step 1
+forces $\Tmax=\infty$, and the weighted estimate gives~\eqref{eq:odebound}.
+\end{proof}
+
+\textbf{A check using the exact solution.}
+Direct differentiation verifies
+\[
+y(t)=\frac{y_0e^{-t}}{1-y_0(1-e^{-t})}
+\]
+as long as the denominator is nonzero. This confirms that $1/8$ is only a
+convenient sufficient threshold. If $y_0>1$, the solution blows up at
+$t=\log(y_0/(y_0-1))$; if $y_0=1$, it stays equal to $1$. Smallness is
+therefore meaningful, although our chosen constant is not sharp.
+
+\newpage
+\pageheading{PDE example: the setting and the heat operator}
+Let $\T=\R/(2\pi\mathbb Z)$ be the circle, identified with $[0,2\pi]$
+with the endpoints joined. Consider
+\begin{equation}\label{eq:pde}
+\partial_tu-\partial_x^2u+u=u^2,\qquad u(0,x)=u_0(x),\qquad x\in\T.
+\end{equation}
+All functions are real-valued and periodic in $x$. We work in
+$C(\T)$, the Banach space of continuous periodic functions, with
+$\norm{f}_\infty=\max_{x\in\T}\abs{f(x)}$. In particular,
+\begin{equation}\label{eq:product}
+\norm{f^2}_\infty\leq\norm{f}_\infty^2,\qquad
+\norm{f^2-g^2}_\infty\leq
+(\norm{f}_\infty+\norm{g}_\infty)\norm{f-g}_\infty.
+\end{equation}
+No Sobolev embedding or product theorem is needed in this example.
+
+\subsection*{An explicit linear solution operator}
+For $t>0$, define
+\[
+G_t(z)=\frac{1}{\sqrt{4\pi t}}\exp\!\left(-\frac{z^2}{4t}\right),\qquad
+K_t(x)=\sum_{k\in\mathbb Z}G_t(x+2\pi k),
+\]
+and
+\[
+S(t)f(x)=\int_0^{2\pi}K_t(x-z)f(z)\dd z,\qquad
+H(t)f=e^{-t}S(t)f,\qquad H(0)f=f.
+\]
+The Gaussian series and its derivatives converge uniformly when $t$ stays
+away from zero. Since $G_t\geq0$ and $\int_\R G_t=1$, periodization gives
+$K_t\geq0$ and $\int_0^{2\pi}K_t=1$. Consequently
+\begin{equation}\label{eq:heatdecay}
+\norm{S(t)f}_\infty\leq\norm{f}_\infty,
+\qquad \norm{H(t)f}_\infty\leq e^{-t}\norm{f}_\infty.
+\end{equation}
+Completing the square in the Gaussian convolution gives
+$G_t*G_s=G_{t+s}$; periodizing this identity gives
+$H(t)H(s)=H(t+s)$. Such a family is called a \emph{semigroup}.
+
+Also $H(t)f\to f$ uniformly as $t\downarrow0$. To see this, extend $f$
+periodically to $\R$ and write
+\[
+S(t)f(x)-f(x)=\int_\R G_t(z)\bigl(f(x-z)-f(x)\bigr)\dd z.
+\]
+On $\abs z<\eta$, uniform continuity makes the difference small; on
+$\abs z\geq\eta$, bound it by $2\norm f_\infty$ and use that the Gaussian
+tail tends to zero. The factor $e^{-t}$ tends to one. The semigroup identity
+and~\eqref{eq:heatdecay} then give continuity at every time.
+
+\begin{definition}[Mild solution]\label{def:mild}
+For $u_0\in C(\T)$, a mild solution of~\eqref{eq:pde} on $[0,T]$ is
+$u\in C([0,T];C(\T))$ satisfying
+\begin{equation}\label{eq:mild}
+u(t)=H(t)u_0+\int_0^t H(t-s)u(s)^2\dd s.
+\end{equation}
+The integral is the norm limit of Riemann sums of a continuous
+$C(\T)$-valued function. This formula incorporates the initial condition.
+\end{definition}
+For a smooth solution, differentiating $H(t-s)u(s)$ in $s$ gives
+$H(t-s)u(s)^2$, so integration yields~\eqref{eq:mild}. Conversely the mild
+formula solves~\eqref{eq:pde} in the weak sense: for every smooth periodic
+$\varphi$, setting $a(t)=\int_\T u(t)\varphi\dd x$ gives
+\[
+a'(t)=\int_\T u(t)(\varphi''-\varphi)\dd x
+       +\int_\T u(t)^2\varphi\dd x.
+\]
+Indeed, move the symmetric kernel $H$ onto $\varphi$ in~\eqref{eq:mild}
+and differentiate; $\partial_tH(t)\varphi=H(t)(\varphi''-\varphi)$.
+Thus the integral formulation has a precise PDE meaning without assuming
+derivatives of $u$ in advance.
+
+\newpage
+\pageheading{Local PDE solutions and the continuation criterion}
+\begin{proposition}\label{prop:local}
+For every $u_0\in C(\T)$, there is a unique maximal mild solution of
+\eqref{eq:pde} on $[0,\Tmax)$. If $\Tmax<\infty$, then
+\begin{equation}\label{eq:blowup}
+\sup_{0\leq t<\Tmax}\norm{u(t)}_\infty=\infty.
+\end{equation}
+\end{proposition}
+\begin{proof}
+\textbf{1. A fixed-point space.}
+Put $A=\max\{1,\norm{u_0}_\infty\}$, $h=1/(8A)$, and
+\[
+E=C([0,h];C(\T)),\qquad
+\norm v_E=\max_{0\leq t\leq h}\norm{v(t)}_\infty,\qquad
+B=\{v\in E:\norm v_E\leq2A\}.
+\]
+Both $C(\T)$ and $E$ are complete, and $B$ is a nonempty closed subset.
+Let $\Phi(v)$ be the right-hand side of~\eqref{eq:mild}, with $u$ replaced
+by $v$. The continuity of $H$ proved above and its uniform bound ensure
+$\Phi(v)\in E$. More explicitly, $v(s)^2$ is continuous, $H(t)$ is
+strongly continuous, and their composition is jointly continuous for
+$0\leq s\leq t\leq h$; integration therefore preserves continuity.
+
+\textbf{2. Invariance and contraction.}
+Using~\eqref{eq:product}--\eqref{eq:heatdecay}, for $v,w\in B$,
+\begin{align*}
+\norm{\Phi(v)}_E
+&\leq\norm{u_0}_\infty+h\norm v_E^2
+ \leq A+4A^2h=\tfrac32A<2A,\\
+\norm{\Phi(v)-\Phi(w)}_E
+&\leq h(\norm v_E+\norm w_E)\norm{v-w}_E
+ \leq4Ah\norm{v-w}_E=\tfrac12\norm{v-w}_E.
+\end{align*}
+Lemma~\ref{lem:contraction} gives a mild solution on $[0,h]$.
+
+\textbf{3. Uniqueness and restarting.}
+If $u,v$ are two mild solutions with the same initial value, bounded by
+$B_0$ on a compact common interval, then on a subinterval of length $\ell$
+starting with equal values their difference satisfies
+\[
+\max\norm{u-v}_\infty\leq2B_0\ell\max\norm{u-v}_\infty.
+\]
+Choose $2B_0\ell<1$ (the case $B_0=0$ is immediate), then cover the
+common interval by finitely many such subintervals. This proves uniqueness
+among all continuous mild solutions, not only inside the construction ball.
+
+The restart identity used here follows by splitting~\eqref{eq:mild} at
+$t_0$ and using the semigroup property:
+\begin{equation}\label{eq:restart}
+u(t)=H(t-t_0)u(t_0)+\int_{t_0}^t H(t-s)u(s)^2\dd s,
+\qquad t\geq t_0.
+\end{equation}
+Local solutions can therefore be joined consistently, giving a maximal
+interval $[0,\Tmax)$.
+
+\textbf{4. Continuation uses exactly the controlled norm.}
+Suppose $\Tmax<\infty$ but $\norm{u(t)}_\infty\leq B_1$ for all
+$t<\Tmax$. At every such $t_0$, Steps 1--2 give a solution starting from
+$u(t_0)$ for at least the common duration
+\[
+h_* =\frac{1}{8\max\{1,B_1\}}>0.
+\]
+Take $t_0<\Tmax$ with $\Tmax-t_0<h_*$. Uniqueness identifies this
+solution with the old one on the overlap, and it continues past $\Tmax$.
+This contradicts maximality and proves~\eqref{eq:blowup}.
+\end{proof}
+
+Notice that no limit $u(\Tmax)$ had to be constructed. A local lifespan
+depending only on the bounded norm allows us to restart \emph{before} the
+putative final time. This is often the cleanest continuation argument.
+
+\newpage
+\pageheading{Closing the PDE bootstrap and reusing the method}
+\begin{theorem}\label{thm:pde}
+Let $u_0\in C(\T)$ and $\delta=\norm{u_0}_\infty\leq1/8$. Then
+\eqref{eq:pde} has a unique global mild solution and
+\begin{equation}\label{eq:pdebound}
+\norm{u(t)}_\infty\leq\tfrac32\delta e^{-t}\leq2\delta e^{-t}
+\qquad(t\geq0).
+\end{equation}
+No sign assumption is imposed on $u_0$.
+\end{theorem}
+\begin{proof}
+Use Proposition~\ref{prop:local} to obtain the maximal solution. If
+$\delta=0$, uniqueness gives $u=0$. For $\delta>0$, set
+\[
+X(t)=\max_{0\leq s\leq t}e^s\norm{u(s)}_\infty,\qquad t<\Tmax.
+\]
+The norm is continuous since
+$\abs{\norm{u(t)}_\infty-\norm{u(r)}_\infty}\leq\norm{u(t)-u(r)}_\infty$;
+the running-maximum argument of Section~1 makes $X$ continuous. Also
+$X(0)=\delta$. For $r\leq t$, equations~\eqref{eq:mild} and
+\eqref{eq:heatdecay} imply
+\begin{align*}
+e^r\norm{u(r)}_\infty
+&\leq\delta+\int_0^r e^s\norm{u(s)^2}_\infty\dd s\\
+&\leq\delta+X(t)^2\int_0^r e^{-s}\dd s
+ \leq\delta+X(t)^2.
+\end{align*}
+Maximizing in $r$ gives $X(t)\leq\delta+X(t)^2$. Under $X\leq2\delta$,
+the improvement is $X\leq\delta+4\delta^2\leq3\delta/2<2\delta$.
+Proposition~\ref{prop:quadratic} therefore gives $X(t)\leq3\delta/2$ on
+the entire maximal interval. In particular $\norm{u(t)}_\infty$ stays
+bounded. The continuation criterion forces $\Tmax=\infty$, and the
+weighted bound proves~\eqref{eq:pdebound}.
+\end{proof}
+
+\textbf{What changed from the ODE?} The scalar propagator $e^{-t}$ became
+the operator $H(t)$, absolute value became the uniform norm, and the scalar
+product estimate became~\eqref{eq:product}. The continuity argument itself
+was unchanged. Spatially constant initial data give the ODE exactly, since
+$S(t)$ preserves constants. Thus large constant data also show why this PDE
+cannot have a small-data conclusion for arbitrary data.
+
+\subsection*{A checklist for the next equation}
+\begin{enumerate}
+\item \textbf{Construct locally.} Specify the solution class and its maximal interval.
+\item \textbf{Choose the quantity.} Define $X(t)$, possibly with a time weight;
+prove its continuity and compute $X(0)$.
+\item \textbf{State the temporary bound.} Choose a threshold strictly above
+the initial size, e.g.\ $X\leq2a$.
+\item \textbf{Improve with explicit constants.} Derive the estimate under
+that hypothesis and arrange $X\leq3a/2$ by a stated smallness condition.
+\item \textbf{Close by first exit.} Conclude the estimate for every
+$t<\Tmax$, not yet for times at or beyond $\Tmax$.
+\item \textbf{Continue in the correct norm.} Match the bound to the actual
+continuation criterion. Check that the constants are uniform in the time horizon.
+\end{enumerate}
+An estimate that returns only $X\leq2a$ has no strict margin. A bound in a
+weaker norm does not exclude breakdown in a stronger norm unless the local
+theory supplies the needed continuation criterion.
+
+\subsection*{Further reading}
+All arguments needed for the stated results are given above. For wider context,
+see T.~Tao, \emph{Nonlinear Dispersive Equations: Local and Global Analysis},
+CBMS~106, AMS, 2006, \S1.3, ``Bootstrap and continuity arguments''
+(\href{https://www.math.ucla.edu/~tao/preprints/chapter.pdf}{author's online text});
+and J.~K.~Hunter, \emph{Notes on Partial Differential Equations}, Chapter~5,
+``The heat equation''
+(\href{https://www.math.ucdavis.edu/~hunter/pdes/ch5.pdf}{online lecture notes}).
+\end{document}
