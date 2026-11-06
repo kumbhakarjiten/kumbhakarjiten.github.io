@@ -98,6 +98,7 @@ main{padding-bottom:72px}
 .notes-list li{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-left:none;border-bottom:1px solid var(--border)}
 .notes-list li:last-child{border-bottom:none}
 .status-pill{display:inline-flex;align-items:center;min-height:26px;padding:0 9px;border-radius:999px;background:#f1f4f7;border:1px solid var(--border);font-size:.75rem;font-weight:720;color:var(--muted);white-space:nowrap}
+.status-pill.accepted{background:#edf6ef;color:#2f6841;border-color:#d1e6d7}
 .status-pill.submitted{background:#edf5fb;color:var(--primary);border-color:#d1e1ef;margin-right:6px}
 .page-shell{padding:64px 0 0}
 .page-intro{padding:38px;margin-bottom:24px}
