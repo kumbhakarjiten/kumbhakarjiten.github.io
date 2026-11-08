@@ -1,95 +1,112 @@
-/* Shared visitor counter: Home may increment; all other pages only read. */
+/* Shared public visitor counter. Count each 30-minute browser session, on any page. */
 (function () {
   "use strict";
-
   const card = document.getElementById("visit-card");
   const todayNode = document.getElementById("visits-today");
   const totalNode = document.getElementById("visits-total");
   if (!card || !todayNode || !totalNode) return;
 
-  const countOnThisPage =
-    document.currentScript &&
-    document.currentScript.getAttribute("data-count-visit") === "true";
-
   const api = "https://countapi.mileshilliard.com/api/v1";
-  // Preserve the existing keys so the published visit totals do not reset.
+  // Keep the same server-side keys: previous visitor totals must not reset.
   const totalKey = "jiten-kumbhakar-academic-site-total-2026-v3";
   const dateParts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: "Europe/Budapest",
-    year: "numeric", month: "2-digit", day: "2-digit"
+    timeZone: "Europe/Budapest", year: "numeric", month: "2-digit", day: "2-digit"
   }).formatToParts(new Date());
-  const part = type => dateParts.find(entry => entry.type === type).value;
+  const part = type => dateParts.find(item => item.type === type).value;
   const date = `${part("year")}-${part("month")}-${part("day")}`;
   const todayKey = `jiten-kumbhakar-academic-site-${date}-v3`;
+  const sessionKey = "jk-visitor-session-v5";
+  const maxIdleMs = 30 * 60 * 1000;
 
-  const readSession = key => {
-    try { return sessionStorage.getItem(key) === "1"; }
-    catch (_) { return false; }
-  };
-  const markSession = key => {
-    try { sessionStorage.setItem(key, "1"); }
-    catch (_) { /* Storage may be unavailable in privacy modes. */ }
-  };
-  const readCache = key => {
-    try {
-      const value = localStorage.getItem("jk-counter-cache-" + key);
-      return value !== null && Number.isSafeInteger(Number(value)) ? Number(value) : null;
-    } catch (_) { return null; }
-  };
-  const writeCache = (key, value) => {
-    try { localStorage.setItem("jk-counter-cache-" + key, String(value)); }
-    catch (_) { /* The counter still works without a local cache. */ }
-  };
+  function readStorage(key) {
+    try { return localStorage.getItem(key); } catch (_) { return null; }
+  }
+  function writeStorage(key, value) {
+    try { localStorage.setItem(key, value); } catch (_) { /* Private browsing may block it. */ }
+  }
+  function removeStorage(key) {
+    try { localStorage.removeItem(key); } catch (_) { /* Ignore storage restrictions. */ }
+  }
+  function readRecord(key) {
+    try { return JSON.parse(readStorage(key) || "null"); } catch (_) { return null; }
+  }
 
-  const request = async (action, key) => {
+  const now = Date.now();
+  const previous = readRecord(sessionKey);
+  const sameVisit = previous && previous.date === date &&
+    typeof previous.lastAt === "number" &&
+    now >= previous.lastAt && now - previous.lastAt < maxIdleMs;
+  // A fresh visit starts after 30 minutes of inactivity or at a new local date.
+  const visitId = sameVisit && typeof previous.id === "string" ? previous.id :
+    `${now}-${Math.random().toString(36).slice(2)}`;
+  writeStorage(sessionKey, JSON.stringify({ id: visitId, date, lastAt: now }));
+
+  async function request(action, key) {
     const response = await fetch(`${api}/${action}/${encodeURIComponent(key)}`, {
       cache: "no-store"
     });
-    if (!response.ok) throw new Error("Counter request failed");
+    // A new day's key may not exist until someone first visits.
+    if (response.status === 404 && action === "get" && key === todayKey) return 0;
+    if (!response.ok) throw new Error(`Counter HTTP ${response.status}`);
     const data = await response.json();
     const value = Number(data && data.value);
-    if (!Number.isSafeInteger(value) || value < 0)
-      throw new Error("Counter returned an invalid value");
+    if (!Number.isSafeInteger(value) || value < 0) throw new Error("Invalid counter value");
     return value;
-  };
+  }
 
-  const legacyCounted = readSession("jk-academic-site-visit-v3");
-  let failed = false;
+  let usedCache = false;
+  let unavailable = false;
+  async function updateMetric(key, node) {
+    const doneKey = `jk-visit-counted-v5-${key}`;
+    const lockKey = `jk-visit-lock-v5-${key}`;
+    const cacheKey = `jk-counter-cache-${key}`;
+    const lock = readRecord(lockKey);
+    const locked = lock && lock.id === visitId && typeof lock.at === "number" &&
+      now >= lock.at && now - lock.at < 15000;
+    const shouldHit = readStorage(doneKey) !== visitId && !locked;
 
-  const show = async (key, node, sessionKey) => {
-    // Only Home increments, and each key is attempted at most once in this tab.
-    const shouldIncrement = countOnThisPage && !legacyCounted && !readSession(sessionKey);
-    if (shouldIncrement) markSession(sessionKey);
-
+    if (shouldHit) writeStorage(lockKey, JSON.stringify({ id: visitId, at: now }));
     try {
-      const value = await request(shouldIncrement ? "hit" : "get", key);
+      const value = await request(shouldHit ? "hit" : "get", key);
       node.textContent = value.toLocaleString("en-US");
-      writeCache(key, value);
+      writeStorage(cacheKey, String(value));
+      if (shouldHit) writeStorage(doneKey, visitId);
     } catch (_) {
+      // Read-only fallback; never claim an increment happened when it did not.
       try {
-        // An unavailable /hit endpoint must never erase a working /get result.
         const value = await request("get", key);
         node.textContent = value.toLocaleString("en-US");
-        writeCache(key, value);
+        writeStorage(cacheKey, String(value));
       } catch (_) {
-        failed = true;
-        const cached = readCache(key);
-        if (cached !== null) {
-          node.textContent = cached.toLocaleString("en-US");
-          card.title = "Some visit totals are the last values available";
+        unavailable = true;
+        const cached = readStorage(cacheKey);
+        if (cached !== null && Number.isSafeInteger(Number(cached))) {
+          node.textContent = Number(cached).toLocaleString("en-US");
+          usedCache = true;
         } else {
           node.textContent = "—";
-          card.title = "Visitor counter temporarily unavailable";
         }
       }
+    } finally {
+      const currentLock = readRecord(lockKey);
+      if (shouldHit && currentLock && currentLock.id === visitId) removeStorage(lockKey);
     }
-  };
+  }
 
   Promise.allSettled([
-    show(totalKey, totalNode, "jk-academic-total-counted-v4"),
-    show(todayKey, todayNode, `jk-academic-daily-counted-v4-${date}`)
+    updateMetric(totalKey, totalNode),
+    updateMetric(todayKey, todayNode)
   ]).then(() => {
     card.classList.remove("is-loading");
-    card.classList.toggle("is-error", failed);
+    card.classList.toggle("is-error", unavailable);
+    if (usedCache) {
+      const smallHeading = card.querySelector(".visit-heading small");
+      if (smallHeading) smallHeading.textContent = "Last known totals";
+      card.title = "The counter service is unavailable; values may be out of date.";
+    } else if (unavailable) {
+      card.title = "The visitor counter is temporarily unavailable.";
+    } else {
+      card.removeAttribute("title");
+    }
   });
 })();
